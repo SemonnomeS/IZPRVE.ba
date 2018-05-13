@@ -445,7 +445,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
         transform: translateX(100%);
         margin: 0;
         overflow-y: auto;
-        background: #1C1D21;
+        background: #f6f7f9;
         -webkit-transition: 0.2s all;
         transition: 0.2s all;
     }
@@ -468,7 +468,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
         border-left: 6px solid #6195FF;
     }
     .main-nav li a:hover, .main-nav li a:focus {
-        background-color: #6195FF;
+        background-color: #f6f7f9;
         color: #FFF;
         opacity: 1;
     }
