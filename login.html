@@ -7,13 +7,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>SB Admin - Start Bootstrap Template</title>
-  <!-- Bootstrap core CSS-->
+  <title>IZPRVE.ba</title>
+
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom fonts for this template-->
+
   <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <!-- Custom styles for this template-->
+
   <link href="css/sb-admin.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <style>
+    .error{
+      color: red;
+    }
+  </style>
 </head>
 
 <body class="bg-dark">
@@ -28,7 +39,7 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Šifra</label>
-            <input class="form-control" id="password" type="password" placeholder="Unesite šifru">
+            <input class="form-control" name="password" type="password" placeholder="Unesite šifru">
           </div>
           <div class="form-group">
             <div class="form-check">
@@ -36,7 +47,9 @@
                 <input class="form-check-input" type="checkbox"> Zapamti šifru</label>
             </div>
           </div>
-          <a class="btn btn-primary btn-block" href="./dashboard/index.html">Prijava</a>
+          <!--  <input  class="btn btn-primary btn-block" type="submit"> -->
+            <a class="btn btn-primary btn-block" href="./dashboard/index.html">Prijava</a>
+
         </form>
         <div class="text-center">
           <a class="d-block small mt-3" href="register.html">Registrujte račun</a>
@@ -46,36 +59,32 @@
     </div>
   </div>
   <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+
 </body>
 <script>
 
   $("#forma").validate({
     rules: {
-      email: {
-        minlength: 2,
-        maxlength: 5
+      mail:{
+        required: true,
+        email : true
+      },
+      password:{
+        required: true,
+        minlength: 6
       }
     },
     messages: {
-      email: {
-        required: "Hamdija de,der majke ti unesi prezime",
-        minlength: "Unesi der koje slovo",
-        maxlength: "Precero si hamdija"
+      mail: {
+        required: "Unesite email",
+        email: "Unesite validan email"
+      },
+      password:{
+        required: "Molimo unesite šifru",
+        minlength : "Vaša šifra treba da sadrži minimalno 6 karaktera"
       }
     },
-    submitHandler: function(form) {
-      if (confirm('Jesi fakat fakat fakat siguran da hoces da submitas????')){
-        console.log(form);
-        form.submit();
-      }else{
-        alert('Dobro ne moras odmah psovati');
-      }
-    }
+    
   });
 </script>
 
