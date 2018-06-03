@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <style>
+      .error{
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1> Unesi raju u sistem</h1>
+<div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6">
+    <form id="hamdija-form" method="post">
+      <div class="form-group">
+        <label for="exampleInputEmail1">First Name</label>
+        <input type="text" name="first_name" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Last Name</label>
+        <input type="text" name="last_name" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Amount</label>
+        <input type="number" name="amount" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-danger">Submit</button>
+    </form>
+  </div>
+  <div class="col-sm-3"></div>
+
+</div>
+    <h1>RAJA U SISTEMU</h1>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Amount</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+      <tbody id="users-body">
+
+      </tbody>
+    </table>
+  </body>
+
+  <script>
+    $("#hamdija-form").validate({
+      rules: {
+        last_name: {
+          minlength: 2,
+          maxlength: 40
+        }
+      },
+      messages: {
+        last_name: {
+          required: "Hamdija de,der majke ti unesi prezime",
+          minlength: "Unesi der koje slovo",
+          maxlength: "Precero si hamdija"
+        }
+      },
+      submitHandler: function(form) {
+        if (confirm('Jesi fakat fakat fakat siguran da hoces da submitas????')){
+          console.log(form);
+          form.submit();
+        }else{
+          alert('Dobro ne moras odmah psovati');
+        }
+      }
+    });
+
+    $.get("../php/rest/users", function(data){
+
+      var html = '';
+      for(var i = 0 ; i < data.length; i++){
+        html += '<tr>   <td>'+data[i].id+'</td>';
+        html += '<td>'+data[i].first_name+'</td>';
+        html += '  <td>'+data[i].last_name+'</td>';
+        html += '   <td>'+data[i].amount+'</td>';
+        html += '  <td>'+data[i].email+'</td>';
+        html += '  <td><button onclick="delete_user('+data[i].id+')" class="btn btn-danger">Delete</button></td></tr>';
+      }
+
+      $('#users-body').html(html);
+    });
+
+    function delete_user(id){
+      if (confirm("Hos fakat???")){
+        $.ajax({url: "../php/rest/users"+id, method: "DELETE" }).done(function( msg ) { location.reload();}).fail(function( jqXHR, textStatus ) { alert( "Request failed: " + textStatus ); });
+      }
+    }
+  </script>
+</html>

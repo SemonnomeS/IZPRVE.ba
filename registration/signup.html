@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/signup.css">
+
+    <!-- Modernizr JS -->
+    <!-- jQuery -->
+    <script src="../dashboard/js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <!-- Bootstrap -->
+    <script src="../dashboard/js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="colorlib-loader"></div>
+
+    <div id="page">
+        <div class="col-md-4 col-md-offset-4 col-xs-10 col-xs-offset-1 signup">
+            <form id="signup-form" method="post">
+                <div class="form-group">
+                    <label for="email">Email adresa</label>
+                    <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="username">Ime</label>
+                    <input type="text" name="username" class="form-control" id="username" placeholder="Ime">
+                </div>
+                <div class="form-group">
+                    <label for="username">Ime firme</label>
+                    <input type="text" name="name" class="form-control" id="cinema_name" placeholder="Ime firme">
+                </div>
+                <div class="form-group">
+                    <label for="password">Zaporka</label>
+                    <input type="password" name="pass" class="form-control" id="password" placeholder="Zaporka">
+                </div>
+                <button type="submit" class="btn btn-success">Registruj se</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="gototop js-top">
+        <a href="#" class="js-gotop">
+            <i class="icon-arrow-up2"></i>
+        </a>
+    </div>
+    <script>
+        $("#signup-form").validate({
+            rules: {
+                email: {
+                    minlength: 6
+                },
+                username: {
+                    minlength: 3
+                },
+                pass: {
+                    minlength: 6
+                },
+                name:{
+                    minlength:2
+                }
+            },
+            messages: {
+                email: {
+                    required: "Please enter your email address",
+                    minlength: "Unesi der koje slovo",
+                },
+                username: {
+                    required: "Please enter your username",
+                    minlength: "Unesi der koje slovo"
+                },
+                pass: {
+                    required: "Please enter a password",
+                    minlength: "Unesi der koje slovo"
+                }
+                ,
+                name: {
+                    required: "Please enter your cinema name",
+                    minlength: "Unesi der koje slovo"
+                }
+            },
+            submitHandler: function (form) {
+                $.post('../rest/register/user', $('#signup-form').serialize(), function (added_user) {
+                    alert('User Registered');
+                    window.location.href="../index.html"
+                });
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>
