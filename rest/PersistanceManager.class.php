@@ -8,12 +8,12 @@ class PersistanceManager{
     $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
   }
 
-  public function add_user($user)
+  public function add_user($user){
     $companyQuery =
     "INSERT INTO companies (name)
            VALUES (name)";
     $statement = $this->pdo->prepare($query);
-    $statement->execute(['name'=>$user["name"]])
+    $statement->execute(['name'=>$user["name"]]);
     $user["companyID"]=$this->pdo->lastInsertId();
 
     $query = "INSERT INTO users
