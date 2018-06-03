@@ -7,12 +7,11 @@
     <link rel="stylesheet" href="../css/signup.css">
 
     <!-- Modernizr JS -->
-    <script src="../js/modernizr-2.6.2.min.js"></script>
     <!-- jQuery -->
-    <script src="../js/jquery.min.js"></script>
+    <script src="../dashboard/js/jquery.min.js"></script>
     <!-- jQuery Easing -->
     <!-- Bootstrap -->
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="../dashboard/js/bootstrap.min.js"></script>
     <!-- Waypoints -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 
@@ -24,14 +23,14 @@
 
     <div id="page">
         <div class="col-md-4 col-md-offset-4 col-xs-10 col-xs-offset-1 signup">
-            <form id="signup-form" method="post" action="rest/user/login">
+            <form id="signup-form" method="post">
                 <div class="form-group">
                     <label for="username">Ime</label>
                     <input type="text" name="username" class="form-control" id="username" placeholder="ime">
                 </div>
                 <div class="form-group">
                     <label for="password">Zaporka</label>
-                    <input type="password" name="pass" class="form-control" id="password" placeholder="zaporka">
+                    <input type="password" name="password" class="form-control" id="password" placeholder="zaporka">
                 </div>
                 <button type="submit" class="btn btn-success">Prijava</button>
             </form>
@@ -64,27 +63,20 @@
                 }
             },
             submitHandler: function (form) {
-                $.post('rest/user/login', $('#signup-form').serialize(), function (user) {
+                $.post('../rest/user/login', $('#signup-form').serialize(), function (user) {
                     console.log(user);
                     if(user.error){
                         alert(user.error);
                     }
                     else{
                         localStorage.setItem("token", user.token);
-                        localStorage.setItem("cinema_id", user.cinema_id);
-                        window.location.href = '../dashboard';
+                        localStorage.setItem("company_id", user.companyID);
+                        window.location.href = '../dashboard/index.html';
                     }
                 });
             }
         });
     </script>
-    <script src="js/jquery.waypoints.min.js"></script>
-    <!-- Stellar Parallax -->
-    <!-- Flexslider -->
-    <script src="js/jquery.flexslider-min.js"></script>
-    <!-- Owl carousel -->
-    <!-- Main -->
-    <script src="js/main.js"></script>
 
 
 </body>

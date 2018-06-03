@@ -1,4 +1,6 @@
 <?php
+
+
 class PersistanceManager{
   private $pdo;
 
@@ -11,25 +13,44 @@ class PersistanceManager{
   public function add_user($user){
     $companyQuery =
     "INSERT INTO companies (name)
-           VALUES (name)";
-    $statement = $this->pdo->prepare($query);
+           VALUES (:name)";
+    $statement = $this->pdo->prepare($companyQuery);
     $statement->execute(['name'=>$user["name"]]);
     $user["companyID"]=$this->pdo->lastInsertId();
 
     $query = "INSERT INTO users
-            (
-             username,
+            (username,
              email,
              password,
             companyID)
-            VALUES (username,
+            VALUES (:username,
                     :email,
-                    :password
+                    :password,
                     :companyID)";
 
     $statement = $this->pdo->prepare($query);
-    $statement->execute($user);
+    $statement->bindParam(':username', $user['username']);
+    $statement->bindParam(':email', $user['email']);
+    $statement->bindParam(':password', $user['password']);
+    $statement->bindParam(':companyID', $user['companyID']);
+    $statement->execute();
+    //execute(['username'=>$user["username"], 'email'=>$user["email"], 'password'=>$user["password"], 'companyID'=>$user["companyID"]]);
   }
+  public function find_user($user)
+    {
+        $usernameCheck = $this->pdo->prepare("SELECT * FROM users WHERE username  = :name AND password = :password");
+        $usernameCheck->bindParam(':name', $user['username']);
+        $usernameCheck->bindParam(':password', $user['password']);
+        $usernameCheck->execute();
+        if ($usernameCheck->rowCount() === 0) {
+            $x["valid"] = false;
+            $x["error"] = "invalid username or password";
+            return $x;
+        }
+        $x = $usernameCheck->fetch();
+        $x["valid"] = true;
+        return $x;
+    }
 
   public function get_all_users(){
     $query = "SELECT * FROM users";
